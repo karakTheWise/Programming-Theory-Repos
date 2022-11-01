@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class ClientBehaviour : MonoBehaviour
 {
     public NavMeshAgent client;
     private GameObject[] chairsList;
     private Transform clientDestination;
+    public Canvas uIRequest;
+    private GameObject cameraToFace;
 
     private void Start()
     {
@@ -24,12 +27,14 @@ public class ClientBehaviour : MonoBehaviour
                 break;
             }
         }
+        cameraToFace = GameObject.FindGameObjectWithTag("MainCamera");
     }
 
     private void Update()
     {
         //We move the client each frame until the destination
         MoveClient();
+        LookAtCamera();
     }
 
     // function to move the client to the destination using NavMesh
@@ -38,4 +43,8 @@ public class ClientBehaviour : MonoBehaviour
         client.SetDestination(clientDestination.position);
     }
 
+    private void LookAtCamera()
+    {
+        uIRequest.transform.rotation = Quaternion.LookRotation(transform.position - cameraToFace.transform.position);
+    }
 }

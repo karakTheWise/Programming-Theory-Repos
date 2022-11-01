@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Client
   - Chair
+  - Drinks
   layers:
   - Default
   - TransparentFX

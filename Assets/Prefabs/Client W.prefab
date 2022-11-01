@@ -11,6 +11,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ceea31881148e4602a149acf39d7651a, type: 2}
+    - target: {fileID: 5954305664913900859, guid: ac81727b89ce1412db688317492b675a, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5954305664913900859, guid: ac81727b89ce1412db688317492b675a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b039f9ed038d70146b31fac4f0bd038b, type: 3}
     - target: {fileID: 7450741077797870954, guid: ac81727b89ce1412db688317492b675a, type: 3}
       propertyPath: m_Name
       value: Client W
