@@ -11,6 +11,8 @@ public class PlayerControl : MonoBehaviour
     public Camera cam; //used to raycast the destination of the Innkeeper
     public Canvas actualBeerCanvas; // Display of the selected beer, used to enable/disable
     public static int selectedBeer { get; private set; } // getter and setter of the handed beer
+    [SerializeField]
+    private Sprite[] beerList;
 
 
     void Start()
@@ -48,6 +50,7 @@ public class PlayerControl : MonoBehaviour
     public void DisplayBeer() //Function to display the beer handed by the innkeeper
     {
         actualBeerCanvas.GetComponent<Canvas>().enabled = true;
+        GameObject.FindGameObjectWithTag("Beer").GetComponent<Image>().sprite = beerList[selectedBeer];
     }
 
     public void SelectBeer(int newBeer) // Function used in BeerDistributor script to change the handed beer

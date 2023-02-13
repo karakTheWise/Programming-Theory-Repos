@@ -9,6 +9,7 @@ TagManager:
   - Drinks
   - Bar
   - SpawnManager
+  - Beer
   layers:
   - Default
   - TransparentFX
