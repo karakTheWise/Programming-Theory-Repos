@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4755520430850383626, guid: ac81727b89ce1412db688317492b675a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5906536822939986249, guid: ac81727b89ce1412db688317492b675a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -19,6 +23,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: b039f9ed038d70146b31fac4f0bd038b, type: 3}
+    - target: {fileID: 6956616546487888793, guid: ac81727b89ce1412db688317492b675a, type: 3}
+      propertyPath: beerTypeRequest
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7450741077797870954, guid: ac81727b89ce1412db688317492b675a, type: 3}
       propertyPath: m_Name
       value: Client W
