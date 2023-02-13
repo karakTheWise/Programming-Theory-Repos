@@ -53,5 +53,10 @@ public class PlayerControl : MonoBehaviour
     public void SelectBeer(int newBeer) // Function used in BeerDistributor script to change the handed beer
     {
         selectedBeer = newBeer;
+        Debug.Log("j'ai la biere " + selectedBeer);
+    }
+    public void HideBeer() //Function to display the beer handed by the innkeeper
+    {
+        actualBeerCanvas.GetComponent<Canvas>().enabled = false;
     }
 }

@@ -11,9 +11,13 @@ public class Service : MonoBehaviour
     {
          if (PlayerControl.selectedBeer == associatedClient.GetComponent<Chair>().beerRequested)
         {
-            Debug.Log("OK j'ai la biere" + PlayerControl.selectedBeer.ToString() + "Ma chaise a demandé la biere" + associatedClient.GetComponent<Chair>().beerRequested); //debug if yes
+            associatedClient.GetComponent<Chair>().ServiceOK(); //To be used later to trigger all the tasks linked with the service
+            other.GetComponent<PlayerControl>().SelectBeer(4); //refesh the innkeeper handed beer
+            other.GetComponent<PlayerControl>().HideBeer();
+            Debug.Log("servi");
+            
         }
-        Debug.Log("j'ai la biere" + PlayerControl.selectedBeer.ToString() + "Ma chaise a demandé la biere" + associatedClient.GetComponent<Chair>().beerRequested);//debug if no
+        Debug.Log("C'est pas OK, j'ai la biere" + PlayerControl.selectedBeer.ToString() + "Ma chaise a demandé la biere" + associatedClient.GetComponent<Chair>().beerRequested);//debug if no
     }
 
 }

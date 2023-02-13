@@ -13,6 +13,9 @@ public class ClientBehaviour : MonoBehaviour
     private GameObject cameraToFace; // to be sure the request will stay in front of the viewer
     private GameObject barToFace; // to be sure the client will look at the bar
     public int beerTypeRequest; // to set the beer request of each client (on the inspector) used later to transfer the request to the chair
+    private float drinkTimer = 5.0f;
+    private Transform spawnManagerPosition; // Transform to store the Spawn manager location (used by the client to go back)
+    public bool served = false; //Used to avoid a new customer to be destroyed when he cross the spawn manager trigger
 
     private void Start()
     {
@@ -32,6 +35,7 @@ public class ClientBehaviour : MonoBehaviour
         }
         cameraToFace = GameObject.FindGameObjectWithTag("MainCamera"); // set the location of the camera 
         barToFace = GameObject.FindGameObjectWithTag("Bar");// set the location of the bar
+        spawnManagerPosition = GameObject.FindGameObjectWithTag("SpawnManager").transform; //Set the location of the Spawn Manager
         MoveClient();
 
         
@@ -70,4 +74,22 @@ public class ClientBehaviour : MonoBehaviour
         uIRequest.enabled = false;
     }
 
+    private void GoBack() // Used to ask the custom to go back
+    {
+        served = true;
+        client.SetDestination(spawnManagerPosition.position);
+    }
+
+    public void Drink() // all steps to do when the client's order is validated
+    {
+        HideRequest(); 
+        StartCoroutine(DrinkRoutine()); //we start a coroutine to wait some time before asking the client to go back
+        IEnumerator DrinkRoutine()
+        {
+            //We wait before instantiating again
+            yield return new WaitForSeconds(drinkTimer);
+            GoBack();
+        }
+
+    }
 }
