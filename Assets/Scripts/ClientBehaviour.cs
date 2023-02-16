@@ -7,8 +7,6 @@ using UnityEngine.UI;
 public class ClientBehaviour : MonoBehaviour
 {
     public NavMeshAgent client; //the IA agent handeling the physics parameters of the client move
-    private GameObject[] chairsList; //list of chairs (to calculate which one is available)
-    private Transform clientDestination; //To set the location of each client's chair 
     public Canvas uIRequest; // the display of the beer requested
     private GameObject cameraToFace; // to be sure the request will stay in front of the viewer
     private GameObject barToFace; // to be sure the client will look at the bar
@@ -21,22 +19,12 @@ public class ClientBehaviour : MonoBehaviour
     {
         //we take the list of all chairs and if at least one is available we set the destination in a transform variable
         uIRequest.enabled = false;
-        chairsList = GameObject.FindGameObjectsWithTag("Chair");
-        for (int i = 0; i < chairsList.Length; i++)
-        {
-            if (chairsList[i].GetComponent<Chair>().isEmpty == true)
-            {
-                //We set the destination
-                clientDestination = chairsList[i].transform;
-                //we reserve the chair (to avoid other client to use the same chair)
-                chairsList[i].GetComponent<Chair>().isEmpty = false;
-                break;
-            }
-        }
+        
         cameraToFace = GameObject.FindGameObjectWithTag("MainCamera"); // set the location of the camera 
         barToFace = GameObject.FindGameObjectWithTag("Bar");// set the location of the bar
         spawnManagerPosition = GameObject.FindGameObjectWithTag("SpawnManager").transform; //Set the location of the Spawn Manager
-        MoveClient();
+
+        MoveClient(CheckForAChair());
 
         
     }
@@ -47,12 +35,29 @@ public class ClientBehaviour : MonoBehaviour
         LookAtCamera();
     }
 
+    private Transform CheckForAChair() //ABSTRACTION (used to find an empty chair to guide the client, I used this function in the Start Method at the first place)
+    {
+        GameObject[] chairsList = GameObject.FindGameObjectsWithTag("Chair");
+        Transform emptyChairPosition = null;
+        for (int i = 0; i < chairsList.Length; i++)
+        {
+            if (chairsList[i].GetComponent<Chair>().isEmpty == true)
+            {
+                //We set the destination
+                emptyChairPosition = chairsList[i].transform;
+                //we reserve the chair (to avoid other client to use the same chair)
+                chairsList[i].GetComponent<Chair>().isEmpty = false;
+                break;
+            }
+        }
+        return emptyChairPosition;
+    }
+
     // function to move the client to the destination using NavMesh
-    private void MoveClient() //the move of each client
+    private void MoveClient(Transform clientDestination) //the move of each client
     {
         client.SetDestination(clientDestination.position);
     }
-
     private void LookAtCamera() //to be sure the client's 2D Canvas will stay in front of the camera
     {
         uIRequest.transform.rotation = Quaternion.LookRotation(transform.position - cameraToFace.transform.position);
